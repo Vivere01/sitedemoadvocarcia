@@ -7,6 +7,109 @@
     <meta name="description" content="Aureum & Partners — Excelência Jurídica para quem exige o mais alto nível. Proteção patrimonial, direito empresarial e consultoria estratégica.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+    /* ═══════════════════════════════════════════════
+       MONTBLANC PEN — HERO INTEGRATION
+       ═══════════════════════════════════════════════ */
+
+    /* Make hero a flex row so text stays left, pen goes right */
+    #hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .hero-inner {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 clamp(1.5rem, 5vw, 4rem);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+    /* Text column */
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: left;
+        max-width: 580px;
+        padding: 0;
+        margin-top: 2rem;
+        flex: 1 1 auto;
+    }
+    /* Pen column */
+    .hero-pen-wrap {
+        flex: 0 0 auto;
+        width: clamp(320px, 40vw, 520px);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+    }
+    /* The pen SVG itself */
+    #mb-pen {
+        width: 100%;
+        max-width: 100%;
+        /* Tilt like reference: pointing bottom-left */
+        transform: rotate(-38deg);
+        transform-origin: center center;
+        filter:
+            drop-shadow(-8px 16px 40px rgba(0,0,0,0.85))
+            drop-shadow(0 0 18px rgba(200,169,107,0.12))
+            drop-shadow(2px -2px 12px rgba(200,169,107,0.08));
+        animation: penFloat 5s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+        will-change: transform;
+    }
+    @keyframes penFloat {
+        0%   { transform: rotate(-38deg) translateY(0px)    translateX(0px); }
+        30%  { transform: rotate(-37.2deg) translateY(-6px) translateX(2px); }
+        60%  { transform: rotate(-38.5deg) translateY(-10px) translateX(-3px); }
+        100% { transform: rotate(-37.6deg) translateY(-5px) translateX(4px); }
+    }
+    /* Signature SVG beneath nib */
+    .pen-signature-svg {
+        position: absolute;
+        bottom: -10%;
+        left: -15%;
+        width: 80%;
+        pointer-events: none;
+        opacity: 0.92;
+    }
+    #sig-draw {
+        stroke-dasharray: 600;
+        stroke-dashoffset: 600;
+        animation: sigDraw 2.8s 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    #sig-glow-pen {
+        stroke-dasharray: 600;
+        stroke-dashoffset: 600;
+        animation: sigDraw 2.8s 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        filter: blur(5px);
+        opacity: 0.5;
+    }
+    @keyframes sigDraw {
+        to { stroke-dashoffset: 0; }
+    }
+    /* Hide pen on very small screens */
+    @media (max-width: 767px) {
+        .hero-inner { flex-direction: column; }
+        .hero-content { text-align: center; max-width: 100%; }
+        .hero-pen-wrap { width: clamp(220px, 75vw, 360px); }
+        #mb-pen { transform: rotate(-38deg) scale(0.9); }
+        @keyframes penFloat {
+            0%   { transform: rotate(-38deg) scale(0.9) translateY(0px); }
+            100% { transform: rotate(-37.5deg) scale(0.9) translateY(-8px); }
+        }
+        .hero-btns { justify-content: center; }
+    }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 </head>
@@ -34,19 +137,393 @@
         <div class="hero-bg">
             <div class="hero-overlay"></div>
         </div>
-        <div class="hero-content">
-            <p class="hero-tag anim-up">A Arquitetura do Poder Jurídico</p>
-            <h1 class="hero-title anim-up">Excelência Jurídica<br>para quem exige o<br><em>mais alto nível.</em></h1>
-            <p class="hero-sub anim-up">Proteção patrimonial, estruturação empresarial e resolução de litígios complexos com precisão cirúrgica e confidencialidade absoluta.</p>
-            <div class="hero-btns anim-up">
-                <a href="#contato" class="btn-gold">Falar com um Sócio</a>
-                <a href="#escritorio" class="btn-outline">Conheça o Escritório →</a>
+
+        <div class="hero-inner">
+            <!-- LEFT: text -->
+            <div class="hero-content">
+                <p class="hero-tag anim-up">A Arquitetura do Poder Jurídico</p>
+                <h1 class="hero-title anim-up">Excelência Jurídica<br>para quem exige o<br><em>mais alto nível.</em></h1>
+                <p class="hero-sub anim-up">Proteção patrimonial, estruturação empresarial e resolução de litígios complexos com precisão cirúrgica e confidencialidade absoluta.</p>
+                <div class="hero-btns anim-up">
+                    <a href="#contato" class="btn-gold">Falar com um Sócio</a>
+                    <a href="#escritorio" class="btn-outline">Conheça o Escritório →</a>
+                </div>
             </div>
-        </div>
+
+            <!-- RIGHT: Montblanc pen -->
+            <div class="hero-pen-wrap">
+
+                <!-- Golden signature stroke under nib -->
+                <svg class="pen-signature-svg" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path id="sig-glow-pen"
+                        d="M 10,55 C 30,30 60,20 90,28 C 120,36 118,65 100,72 C 82,79 65,64 75,50 C 85,36 110,42 118,58 C 128,78 118,105 102,112 M 130,25 C 155,10 185,18 192,42 C 199,66 180,85 162,82 C 144,79 138,58 150,46 C 162,34 185,42 188,62 M 210,35 C 232,18 260,28 265,52 C 270,76 250,92 232,88 C 214,84 210,62 222,50 C 234,38 258,48 260,68 L 290,60"
+                        fill="none" stroke="#C8A96B" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round"
+                    />
+                    <path id="sig-draw"
+                        d="M 10,55 C 30,30 60,20 90,28 C 120,36 118,65 100,72 C 82,79 65,64 75,50 C 85,36 110,42 118,58 C 128,78 118,105 102,112 M 130,25 C 155,10 185,18 192,42 C 199,66 180,85 162,82 C 144,79 138,58 150,46 C 162,34 185,42 188,62 M 210,35 C 232,18 260,28 265,52 C 270,76 250,92 232,88 C 214,84 210,62 222,50 C 234,38 258,48 260,68 L 290,60"
+                        fill="none" stroke="#C8A96B" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round"
+                    />
+                </svg>
+
+                <!-- MONTBLANC PEN — detailed SVG -->
+                <svg id="mb-pen" viewBox="0 0 120 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <!-- Main barrel gradient (shiny black lacquer) -->
+                        <linearGradient id="barrel" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%"   stop-color="#1a1a1a"/>
+                            <stop offset="18%"  stop-color="#2e2e2e"/>
+                            <stop offset="35%"  stop-color="#111"/>
+                            <stop offset="50%"  stop-color="#3a3a3a"/>
+                            <stop offset="65%"  stop-color="#181818"/>
+                            <stop offset="82%"  stop-color="#262626"/>
+                            <stop offset="100%" stop-color="#0d0d0d"/>
+                        </linearGradient>
+                        <!-- Cap gradient -->
+                        <linearGradient id="cap-grad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%"   stop-color="#222"/>
+                            <stop offset="30%"  stop-color="#333"/>
+                            <stop offset="60%"  stop-color="#1a1a1a"/>
+                            <stop offset="100%" stop-color="#0f0f0f"/>
+                        </linearGradient>
+                        <!-- Gold ring gradient -->
+                        <linearGradient id="gold-ring" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%"   stop-color="#f0d98a"/>
+                            <stop offset="20%"  stop-color="#C8A96B"/>
+                            <stop offset="50%"  stop-color="#e8c97e"/>
+                            <stop offset="75%"  stop-color="#9a7535"/>
+                            <stop offset="100%" stop-color="#7a5c20"/>
+                        </linearGradient>
+                        <!-- Nib gradient (gold cone) -->
+                        <linearGradient id="nib-grad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%"   stop-color="#f2dfa0"/>
+                            <stop offset="30%"  stop-color="#d4aa58"/>
+                            <stop offset="65%"  stop-color="#9a7535"/>
+                            <stop offset="100%" stop-color="#5a3e10"/>
+                        </linearGradient>
+                        <!-- Clip gold -->
+                        <linearGradient id="clip-g" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%"   stop-color="#edd98a"/>
+                            <stop offset="40%"  stop-color="#C8A96B"/>
+                            <stop offset="100%" stop-color="#8a6020"/>
+                        </linearGradient>
+                        <!-- Cap top highlight -->
+                        <radialGradient id="cap-top" cx="50%" cy="30%" r="60%">
+                            <stop offset="0%"   stop-color="#444"/>
+                            <stop offset="100%" stop-color="#111"/>
+                        </radialGradient>
+                        <!-- Nib glow filter -->
+                        <filter id="nib-glow" x="-30%" y="-30%" width="160%" height="160%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="b"/>
+                            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                        <!-- Pen shadow -->
+                        <filter id="pen-shadow" x="-20%" y="-5%" width="140%" height="110%">
+                            <feDropShadow dx="-4" dy="8" stdDeviation="6" flood-color="rgba(0,0,0,0.8)"/>
+                        </filter>
+                    </defs>
+
+                    <!-- ====== NIB (bottom / tip) ====== -->
+                    <!-- Nib base connector -->
+                    <rect x="44" y="432" width="32" height="28" rx="4" fill="#0d0d0d"/>
+                    <!-- Nib body (tapered gold shape) -->
+                    <polygon points="60,520 44,436 76,436" fill="url(#nib-grad)" filter="url(#nib-glow)"/>
+                    <!-- Center slit on nib -->
+                    <line x1="60" y1="460" x2="60" y2="518" stroke="#111" stroke-width="1.2" opacity="0.9"/>
+                    <!-- Tipping bead at very point -->
+                    <circle cx="60" cy="519" r="2" fill="#f5e0a0"/>
+                    <!-- Nib side shine -->
+                    <polygon points="60,520 44,436 52,436" fill="rgba(255,240,180,0.12)"/>
+
+                    <!-- ====== SECTION / GRIP (just above nib) ====== -->
+                    <rect x="42" y="388" width="36" height="48" rx="6" fill="#0c0c0c"/>
+                    <!-- Section ring (gold) -->
+                    <rect x="40" y="384" width="40" height="7" rx="2" fill="url(#gold-ring)"/>
+                    <!-- Grip texture lines -->
+                    <line x1="47" y1="395" x2="73" y2="395" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="47" y1="402" x2="73" y2="402" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="47" y1="409" x2="73" y2="409" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="47" y1="416" x2="73" y2="416" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="47" y1="423" x2="73" y2="423" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+                    <!-- ====== BARREL (main body) ====== -->
+                    <rect x="38" y="145" width="44" height="242" rx="8" fill="url(#barrel)"/>
+                    <!-- Barrel highlight streak (gloss) -->
+                    <rect x="42" y="150" width="8" height="230" rx="4" fill="rgba(255,255,255,0.06)"/>
+                    <!-- Barrel secondary reflection -->
+                    <rect x="70" y="160" width="4" height="210" rx="2" fill="rgba(255,255,255,0.03)"/>
+
+                    <!-- ====== GOLD RINGS (3 stacked near cap-barrel join) ====== -->
+                    <rect x="38" y="140" width="44" height="8" rx="2" fill="url(#gold-ring)"/>
+                    <rect x="38" y="132" width="44" height="5" rx="2" fill="url(#gold-ring)"/>
+                    <rect x="38" y="126" width="44" height="4" rx="2" fill="url(#gold-ring)"/>
+
+                    <!-- ====== CAP (top section) ====== -->
+                    <rect x="36" y="30" width="48" height="100" rx="6" fill="url(#cap-grad)"/>
+                    <!-- Cap highlight -->
+                    <rect x="40" y="35" width="10" height="90" rx="5" fill="rgba(255,255,255,0.05)"/>
+                    <!-- Cap bottom ring (gold band) -->
+                    <rect x="36" y="126" width="48" height="6" rx="2" fill="url(#gold-ring)"/>
+
+                    <!-- ====== CLIP (gold, runs along cap side) ====== -->
+                    <rect x="75" y="34" width="7" height="85" rx="3.5" fill="url(#clip-g)"/>
+                    <ellipse cx="78.5" cy="116" rx="6" ry="6" fill="url(#clip-g)"/>
+                    <!-- Clip screw-top detail -->
+                    <circle cx="78.5" cy="36" r="5" fill="#d4aa58"/>
+                    <line x1="76" y1="36" x2="81" y2="36" stroke="#8a6020" stroke-width="1"/>
+
+                    <!-- ====== CAP TOP (Montblanc dome) ====== -->
+                    <ellipse cx="60" cy="30" rx="24" ry="24" fill="url(#cap-top)"/>
+                    <!-- White star emblem ring -->
+                    <circle cx="60" cy="30" r="20" fill="none" stroke="#C8A96B" stroke-width="0.8" opacity="0.6"/>
+                    <!-- White star (6-point, Montblanc style) -->
+                    <circle cx="60" cy="30" r="14" fill="#fafafa"/>
+                    <!-- Star cutout shape -->
+                    <polygon
+                        points="60,16 62.5,25 71,25 64,31 67,40 60,35 53,40 56,31 49,25 57.5,25"
+                        fill="#0a0a0a"
+                    />
+                    <!-- Inner white center of star -->
+                    <circle cx="60" cy="30" r="4" fill="#f0f0f0"/>
+                </svg>
+            </div><!-- /.hero-pen-wrap -->
+        </div><!-- /.hero-inner -->
+
         <div class="hero-scroll">
             <div class="scroll-line"></div>
         </div>
     </header>
+
+    <!-- AUTHORITY STATS (moved up, signature-scene removed) -->
+    <section id="autoridade-placeholder" style="display:none">
+        <p class="sig-label">Aureum &amp; Partners — Assinatura</p>
+        <div class="sig-canvas-wrap">
+
+            <!-- GLOW duplicate of the path -->
+            <svg id="sig-glow" viewBox="0 0 820 280" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <path id="sig-path-glow"
+                    d="M 40,180
+                       C 60,120 90,90 130,100
+                       C 165,110 170,155 150,170
+                       C 130,185 108,165 120,148
+                       C 132,131 158,138 168,155
+                       C 182,177 175,210 160,225
+                       C 145,240 128,238 118,228
+                       C 105,215 108,195 118,185
+
+                       C 140,165 175,158 210,162
+                       C 248,166 265,185 255,205
+                       C 245,223 220,228 205,218
+                       C 190,208 192,190 205,184
+                       C 220,177 242,188 248,205
+
+                       C 258,232 250,258 235,265
+                       C 218,273 200,265 195,250
+
+                       M 270,100
+                       C 295,80 325,85 340,108
+                       C 355,130 348,158 332,170
+                       C 315,183 292,178 282,162
+                       C 271,145 278,122 295,115
+                       C 312,107 335,118 342,138
+                       C 350,160 342,188 328,200
+                       C 312,213 292,210 282,196
+                       C 270,180 274,158 288,148
+
+                       M 370,90
+                       C 400,75 435,85 448,112
+                       C 460,138 450,170 430,182
+                       C 408,195 382,186 373,165
+                       C 364,143 378,118 398,112
+                       C 420,105 445,120 450,145
+                       C 456,172 445,202 428,215
+
+                       C 415,228 398,232 385,225
+                       C 368,216 365,195 375,182
+                       C 386,168 406,168 416,180
+
+                       M 475,130
+                       L 520,100
+                       C 548,82 572,88 582,110
+                       C 592,132 582,160 562,170
+                       C 542,181 518,172 512,152
+                       C 506,131 522,110 542,108
+                       C 562,106 580,125 580,148
+                       C 580,172 562,195 540,200
+
+                       M 600,120
+                       C 622,100 648,105 660,128
+                       C 672,150 662,178 642,188
+                       C 620,199 595,188 588,165
+                       C 580,140 596,115 618,112
+                       C 640,108 658,128 658,152
+                       C 658,178 640,205 618,212
+
+                       M 680,80
+                       C 710,72 740,82 752,108
+                       C 764,134 755,165 735,178
+                       C 712,192 685,182 677,158
+                       C 668,133 685,108 708,106
+                       C 732,103 752,125 752,150
+                       C 752,176 735,200 715,208
+                       C 695,216 675,208 668,192
+                       C 660,175 666,155 680,148
+                       L 780,148"
+                    fill="none"
+                    stroke="#C8A96B"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </svg>
+
+            <!-- MAIN crisp path -->
+            <svg id="sig-main" viewBox="0 0 820 280" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="gold-glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+                        <feColorMatrix in="blur" type="matrix"
+                            values="1 0.5 0 0 0.2
+                                    0.8 0.4 0 0 0.1
+                                    0   0   0 0 0
+                                    0   0   0 1 0" result="colored"/>
+                        <feMerge><feMergeNode in="colored"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                </defs>
+                <path id="sig-path-main"
+                    d="M 40,180
+                       C 60,120 90,90 130,100
+                       C 165,110 170,155 150,170
+                       C 130,185 108,165 120,148
+                       C 132,131 158,138 168,155
+                       C 182,177 175,210 160,225
+                       C 145,240 128,238 118,228
+                       C 105,215 108,195 118,185
+
+                       C 140,165 175,158 210,162
+                       C 248,166 265,185 255,205
+                       C 245,223 220,228 205,218
+                       C 190,208 192,190 205,184
+                       C 220,177 242,188 248,205
+
+                       C 258,232 250,258 235,265
+                       C 218,273 200,265 195,250
+
+                       M 270,100
+                       C 295,80 325,85 340,108
+                       C 355,130 348,158 332,170
+                       C 315,183 292,178 282,162
+                       C 271,145 278,122 295,115
+                       C 312,107 335,118 342,138
+                       C 350,160 342,188 328,200
+                       C 312,213 292,210 282,196
+                       C 270,180 274,158 288,148
+
+                       M 370,90
+                       C 400,75 435,85 448,112
+                       C 460,138 450,170 430,182
+                       C 408,195 382,186 373,165
+                       C 364,143 378,118 398,112
+                       C 420,105 445,120 450,145
+                       C 456,172 445,202 428,215
+
+                       C 415,228 398,232 385,225
+                       C 368,216 365,195 375,182
+                       C 386,168 406,168 416,180
+
+                       M 475,130
+                       L 520,100
+                       C 548,82 572,88 582,110
+                       C 592,132 582,160 562,170
+                       C 542,181 518,172 512,152
+                       C 506,131 522,110 542,108
+                       C 562,106 580,125 580,148
+                       C 580,172 562,195 540,200
+
+                       M 600,120
+                       C 622,100 648,105 660,128
+                       C 672,150 662,178 642,188
+                       C 620,199 595,188 588,165
+                       C 580,140 596,115 618,112
+                       C 640,108 658,128 658,152
+                       C 658,178 640,205 618,212
+
+                       M 680,80
+                       C 710,72 740,82 752,108
+                       C 764,134 755,165 735,178
+                       C 712,192 685,182 677,158
+                       C 668,133 685,108 708,106
+                       C 732,103 752,125 752,150
+                       C 752,176 735,200 715,208
+                       C 695,216 675,208 668,192
+                       C 660,175 666,155 680,148
+                       L 780,148"
+                    fill="none"
+                    stroke="#C8A96B"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    filter="url(#gold-glow-filter)"
+                />
+            </svg>
+
+            <!-- MONTBLANC PEN SVG -->
+            <svg id="montblanc-pen" viewBox="0 0 260 52" xmlns="http://www.w3.org/2000/svg">
+                <!-- Body main barrel (deep black lacquer) -->
+                <rect x="30" y="16" width="195" height="20" rx="10" fill="#0a0a0a"/>
+                <!-- Barrel highlight (top reflection) -->
+                <rect x="35" y="17" width="185" height="5" rx="2.5" fill="url(#barrel-highlight)"/>
+                <!-- Gold clip -->
+                <rect x="195" y="12" width="4" height="32" rx="2" fill="url(#clip-gold)"/>
+                <ellipse cx="197" cy="43" rx="4" ry="4" fill="url(#clip-gold)"/>
+                <!-- Gold rings -->
+                <rect x="190" y="16" width="5" height="20" rx="0" fill="url(#ring-gold)"/>
+                <rect x="183" y="16" width="3" height="20" rx="0" fill="url(#ring-gold)"/>
+                <rect x="176" y="16" width="2" height="20" rx="0" fill="url(#ring-gold)"/>
+                <!-- Cap section (slightly different black) -->
+                <rect x="200" y="16" width="30" height="20" rx="0" fill="#111"/>
+                <rect x="225" y="16" width="10" height="20" rx="5" fill="#0d0d0d"/>
+                <!-- Montblanc star on cap -->
+                <circle cx="232" cy="26" r="6" fill="#050505" stroke="#C8A96B" stroke-width="0.5"/>
+                <text x="232" y="30" text-anchor="middle" font-size="7" fill="#C8A96B" font-family="serif">&#10022;</text>
+                <!-- Nib section (gold cone tapering to point) -->
+                <polygon points="30,18 5,26 30,34" fill="url(#nib-body)"/>
+                <!-- Nib slit -->
+                <line x1="8" y1="26" x2="29" y2="26" stroke="#050505" stroke-width="0.6" opacity="0.8"/>
+                <!-- Nib tip (bright gold point) -->
+                <circle cx="5" cy="26" r="1.2" fill="#E5C890"/>
+                <!-- Section grip (matte black near nib) -->
+                <rect x="28" y="16" width="22" height="20" rx="3" fill="#0c0c0c"/>
+                <!-- Gold section ring -->
+                <rect x="49" y="16" width="3" height="20" rx="0" fill="url(#ring-gold)"/>
+
+                <defs>
+                    <linearGradient id="barrel-highlight" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(255,255,255,0.08)"/>
+                        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                    </linearGradient>
+                    <linearGradient id="nib-body" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#E5C890"/>
+                        <stop offset="40%" stop-color="#C8A96B"/>
+                        <stop offset="70%" stop-color="#8a6f3a"/>
+                        <stop offset="100%" stop-color="#5a4620"/>
+                    </linearGradient>
+                    <linearGradient id="ring-gold" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#E5C890"/>
+                        <stop offset="50%" stop-color="#C8A96B"/>
+                        <stop offset="100%" stop-color="#8a6f3a"/>
+                    </linearGradient>
+                    <linearGradient id="clip-gold" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#E5C890"/>
+                        <stop offset="50%" stop-color="#C8A96B"/>
+                        <stop offset="100%" stop-color="#a07c40"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+
+        </div><!-- /.sig-canvas-wrap -->
+    </section>
 
     <!-- AUTHORITY STATS -->
     <section id="autoridade" class="stats-section">
@@ -255,5 +732,10 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+    /* All pen animation is CSS-driven via @keyframes penFloat and sigDraw. */
+    </script>
 </body>
 </html>
+
+
