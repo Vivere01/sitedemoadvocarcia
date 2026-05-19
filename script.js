@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ── MAGNETIC HOVER ON BUTTONS ──
-    document.querySelectorAll(".btn-gold, .nav-cta").forEach((btn) => {
+    document.querySelectorAll(".btn-gold, .nav-cta, .whatsapp-float").forEach((btn) => {
         btn.addEventListener("mousemove", (e) => {
             const rect = btn.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
